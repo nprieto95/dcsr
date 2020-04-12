@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNet.WebHooks;
-using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http.Controllers;
 
 namespace Dcsr.ReplicationSender.Receivers
@@ -18,9 +17,23 @@ namespace Dcsr.ReplicationSender.Receivers
 
         public override string Name => RecName;
 
-        public override Task<HttpResponseMessage> ReceiveAsync(string id, HttpRequestContext context, HttpRequestMessage request)
+        public async override Task<HttpResponseMessage> ReceiveAsync(string id, HttpRequestContext context, HttpRequestMessage request)
         {
-            return ExecuteWebHookAsync(id, context, request, new string[] { }, request.Content.ReadAsStringAsync());
+            if (!request.GetQueryNameValuePairs().Any(kvp => kvp.Key=="validationToken"))
+            {
+                return await ExecuteWebHookAsync(id, context, request, new string[] { }, await request.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                return WebHookVerification(request);
+            }
+        }
+
+        protected virtual HttpResponseMessage WebHookVerification(HttpRequestMessage request)
+        {
+            var response = request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(request.RequestUri.ParseQueryString()["validationToken"], Encoding.Unicode);
+            return response;
         }
 
     }

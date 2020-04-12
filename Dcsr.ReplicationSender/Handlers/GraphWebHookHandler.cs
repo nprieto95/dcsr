@@ -1,6 +1,5 @@
 ﻿using Dcsr.ReplicationSender.Receivers;
 using Microsoft.AspNet.WebHooks;
-using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
