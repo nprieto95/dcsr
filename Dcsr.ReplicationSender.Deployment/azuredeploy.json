@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "resourcesName": {
+      "type": "string"
+    },
+    "resourcesLocation": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('resourcesName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2019-08-01",
+      "name": "[parameters('resourcesName')]",
+      "location": "[parameters('resourcesLocation')]",
+      "properties": {},
+      "sku": {
+        "name": "F1"
+      }
+    },
+    {
+      "dependsOn": [ "[variables('serverFarmId')]" ],
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2019-08-01",
+      "name": "[parameters('resourcesName')]",
+      "location": "[parameters('resourcesLocation')]",
+      "properties": {
+        "serverFarmId": "[variables('serverFarmId')]"
+      }
+    }
+  ],
+  "outputs": {}
+}
