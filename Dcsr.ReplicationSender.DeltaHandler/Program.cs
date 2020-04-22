@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace Dcsr.ReplicationSender.DeltaHandler
 {
-    // To learn more about Microsoft Azure WebJobs SDK, please see https://go.microsoft.com/fwlink/?LinkID=320976
+
     class Program
     {
-        // Please set the following connection strings in app.config for this WebJob to run:
-        // AzureWebJobsDashboard and AzureWebJobsStorage
-        static void Main()
+
+        static async Task Main()
         {
-            var config = new JobHostConfiguration();
-
-            if (config.IsDevelopment)
+            var builder = new HostBuilder();
+            builder.ConfigureWebJobs(b =>
             {
-                config.UseDevelopmentSettings();
+                b.AddAzureStorageCoreServices();
+            });
+            var host = builder.Build();
+            using (host)
+            {
+                await host.RunAsync();
             }
-
-            var host = new JobHost(config);
-            // The following code ensures that the WebJob will be running continuously
-            host.RunAndBlock();
         }
+
     }
+
 }

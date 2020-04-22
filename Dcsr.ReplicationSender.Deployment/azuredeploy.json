@@ -2,15 +2,21 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "resourcesName": {
-      "type": "string"
-    },
-    "resourcesLocation": {
-      "type": "string"
-    }
+    "resourcesName": { "type": "string" },
+    "resourcesLocation": { "type": "string" },
+    "webHookCode": { "type": "string" },
+    "authorityFormat": { "type": "string" },
+    "tenantId": { "type": "string" },
+    "clientId": { "type": "string" },
+    "clientSecret": { "type": "string" }
   },
   "variables": {
-    "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('resourcesName'))]"
+    "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('resourcesName'))]",
+    "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('resourcesName'))]",
+    "storageAccountConnectionStringFormat": "DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
+    "storageAccountsApiVersion": "2019-06-01",
+    "notificationUrlFormat": "http://{0}.azurewebsites.net/api/webhooks/incoming/graph?code={1}",
+    "notificationUrl": "[format(variables('notificationUrlFormat', parameters('resourcesName'), parameters('webHookCode'))]"
   },
   "resources": [
     {
@@ -24,14 +30,63 @@
       }
     },
     {
-      "dependsOn": [ "[variables('serverFarmId')]" ],
+      "dependsOn": [ "[variables('serverFarmId')]", "[variables('storageAccountId')]" ],
       "type": "Microsoft.Web/sites",
       "apiVersion": "2019-08-01",
       "name": "[parameters('resourcesName')]",
       "location": "[parameters('resourcesLocation')]",
       "properties": {
-        "serverFarmId": "[variables('serverFarmId')]"
+        "serverFarmId": "[variables('serverFarmId')]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "AuthorityFormat",
+              "value": "[parameters('authorityFormat')]"
+            },
+            {
+              "name": "TenantId",
+              "value": "[parameters('tenantId')]"
+            },
+            {
+              "name": "ClientId",
+              "value": "[parameters('clientId')]"
+            },
+            {
+              "name": "ClientSecret",
+              "value": "[parameters('clientSecret')]"
+            },
+            {
+              "name": "MS_WebHookReceiverSecret_Graph",
+              "value": "[parameters('webHookCode')]"
+            },
+            {
+              "name": "NotificationUrl",
+              "value": "[variables('notificationUrl')]"
+            }
+          ],
+          "connectionStrings": [
+            {
+              "type": "Custom",
+              "name": "AzureWebJobsDashboard",
+              "connectionString": "[format(variables('storageAccountConnectionStringFormat'), parameters('resourcesName'), first(listKeys(variables('storageAccountId'), variables('storageAccountsApiVersion')).keys).value)]"
+            },
+            {
+              "type": "Custom",
+              "name": "AzureWebJobsStorage",
+              "connectionString": "[format(variables('storageAccountConnectionStringFormat'), parameters('resourcesName'), first(listKeys(variables('storageAccountId'), variables('storageAccountsApiVersion')).keys).value)]"
+            }
+          ]
+        }
       }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "[variables('storageAccountsApiVersion')]",
+      "name": "[parameters('resourcesName')]",
+      "sku": { "name": "Standard_LRS" },
+      "kind": "StorageV2",
+      "location": "[parameters('resourcesLocation')]",
+      "properties": {}
     }
   ],
   "outputs": {}

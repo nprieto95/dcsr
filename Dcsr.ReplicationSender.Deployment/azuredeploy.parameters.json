@@ -2,11 +2,12 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "resourcesName": {
-      "value": "dcsrreplicationsender"
-    },
-    "resourcesLocation": {
-      "value": "Brazil South"
-    }
+    "resourcesName": { "value": "dcsrreplicationsender" },
+    "resourcesLocation": { "value": "Brazil South" },
+    "webHookCode": { "value": "GO-UADE-DTN-CONTENT-SET-REPLICATION" },
+    "authorityFormat": { "value": "https://login.microsoftonline.com/{0}/v2.0" },
+    "tenantId": { "value": "c73a2c5d-740d-4ad8-8dde-f2df769e5f78" },
+    "clientId": { "value": "cb6700c9-474e-4fba-9353-009be480cb3c" },
+    "clientSecret": { "value": "-tIKt[=kvdw3Mhnp41L8/GHeHHq?5-Nk" }
   }
 }

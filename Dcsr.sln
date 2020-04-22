@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dcsr.ReplicationSender.Delt
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Dcsr.ReplicationSender.Deployment", "Dcsr.ReplicationSender.Deployment\Dcsr.ReplicationSender.Deployment.deployproj", "{997BC813-9C78-49DE-AB11-16B2C1283B69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dcsr.ReplicationSender.Common", "Dcsr.ReplicationSender.Common\Dcsr.ReplicationSender.Common.csproj", "{C9246393-A194-4563-8549-71B2000D5CD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{997BC813-9C78-49DE-AB11-16B2C1283B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{997BC813-9C78-49DE-AB11-16B2C1283B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{997BC813-9C78-49DE-AB11-16B2C1283B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9246393-A194-4563-8549-71B2000D5CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9246393-A194-4563-8549-71B2000D5CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9246393-A194-4563-8549-71B2000D5CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9246393-A194-4563-8549-71B2000D5CD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
