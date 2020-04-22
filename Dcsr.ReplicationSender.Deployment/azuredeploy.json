@@ -8,7 +8,8 @@
     "authorityFormat": { "type": "string" },
     "tenantId": { "type": "string" },
     "clientId": { "type": "string" },
-    "clientSecret": { "type": "string" }
+    "clientSecret": { "type": "string" },
+    "testUserId": {"type": "string"}
   },
   "variables": {
     "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('resourcesName'))]",
@@ -62,6 +63,10 @@
             {
               "name": "NotificationUrl",
               "value": "[variables('notificationUrl')]"
+            },
+            {
+              "name": "TestUserId",
+              "value": "[parameters('testUserId')]"
             }
           ],
           "connectionStrings": [
