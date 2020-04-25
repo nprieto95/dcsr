@@ -17,22 +17,22 @@ namespace GraphDeltaRequestPoc
         static void Main(string[] args)
         {
 
-            string AuthorityFormat = "";
+            //string AuthorityFormat = "";
 
-            IConfidentialClientApplication application;
-            application = ConfidentialClientApplicationBuilder.Create()
-                .WithAuthority(string.Format(AuthorityFormat, ""))//(AadAuthorityAudience.AzureAdMultipleOrgs)//
-                //.WithRedirectUri("http://localhost:53778/Account/GrantPermissions")
-                .WithClientSecret(@"")
-                .Build();
+            //IConfidentialClientApplication application;
+            //application = ConfidentialClientApplicationBuilder.Create()
+            //    .WithAuthority(string.Format(AuthorityFormat, ""))//(AadAuthorityAudience.AzureAdMultipleOrgs)//
+            //    //.WithRedirectUri("http://localhost:53778/Account/GrantPermissions")
+            //    .WithClientSecret(@"")
+            //    .Build();
 
-            var graphClient = new GraphServiceClient(new ClientCredentialProvider(application));
+            //var graphClient = new GraphServiceClient(new ClientCredentialProvider(application));
 
-            var request = graphClient.Users[].Drive.Root.Delta().Request();
+            //var request = graphClient.Users[].Drive.Root.Delta().Request();
 
-            var result = request.GetAsync().Result;
+            //var result = request.GetAsync().Result;
 
-            Debugger.Break();
+            //Debugger.Break();
 
             //Console.WriteLine(JsonConvert.SerializeObject(result));
 

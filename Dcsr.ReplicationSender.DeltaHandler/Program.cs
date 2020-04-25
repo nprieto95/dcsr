@@ -13,11 +13,13 @@ namespace Dcsr.ReplicationSender.DeltaHandler
             builder.ConfigureWebJobs(b =>
             {
                 b.AddAzureStorageCoreServices();
+                b.AddTimers();
             });
             var host = builder.Build();
             using (host)
             {
                 await host.RunAsync();
+
             }
         }
 
