@@ -1,28 +1,37 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
 namespace Dcsr.ReplicationSender.DeltaHandler
 {
-
-    class Program
+    public class Program
     {
 
-        static async Task Main()
+        public static async Task Main()
         {
-            var builder = new HostBuilder();
-            builder.ConfigureWebJobs(b =>
-            {
-                b.AddAzureStorageCoreServices();
-                b.AddTimers();
-            });
-            var host = builder.Build();
+
+            var host =new HostBuilder()
+
+                .ConfigureAppConfiguration(cb =>
+                {
+                    cb.AddEnvironmentVariables();
+                })
+
+                .ConfigureWebJobs(wjb =>
+                {
+                    wjb.AddAzureStorageCoreServices();
+                    wjb.AddTimers();
+                    wjb.AddAzureStorage();
+                })
+
+                .Build();
+
             using (host)
             {
                 await host.RunAsync();
-
             }
+
         }
 
     }
-
 }

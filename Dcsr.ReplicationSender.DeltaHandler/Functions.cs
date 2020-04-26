@@ -1,44 +1,48 @@
 ﻿using Microsoft.Azure.WebJobs;
-using System.IO;
-using static System.Configuration.ConfigurationManager;
-using System.Linq;
-using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Graph;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Dcsr.ReplicationSender.DeltaHandler
 {
+
     public class Functions
     {
-        
-        //public static void ProcessQueueMessage([QueueTrigger("queue")] string message, TextWriter log)
-        //{
-        //    log.WriteLine(message);
-        //}
 
-        public async static void RenewSubscription([TimerTrigger("*/5 0 0 * * *")] TimerInfo timerInfo)
+        private IConfiguration configuration;
+
+        public Functions(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
+        public async Task RenewSubscription([TimerTrigger("0 * * * * *", RunOnStartup = true)] TimerInfo timerInfo)
         {
             var expirationDateTime = DateTime.Now.AddDays(3);
-            var graphClient = GraphClientFactory.CreateGraphClient();
-            var subscriptionsRequest = graphClient.Users[AppSettings["TestUserId"]].Drive.Root.Subscriptions.Request();
-            var relevantSubscription = (await subscriptionsRequest.GetAsync()).FirstOrDefault(s => s.NotificationUrl == AppSettings["NotificationUrl"]);
+            var graphClient = GraphServiceClientFactory.CreateGraphClient(configuration);
+            var subscriptionsRequestBuilder = graphClient.Subscriptions;
+            var subscriptionsRequest = subscriptionsRequestBuilder.Request();
+            var subscriptions = subscriptionsRequest.GetAsync().Result;
+            var relevantSubscription = subscriptions.FirstOrDefault(s => s.NotificationUrl == configuration["NotificationUrl"]);
             var relevantSubscriptionId = relevantSubscription?.Id;
             if (relevantSubscriptionId != null)
             {
                 relevantSubscription.ExpirationDateTime = expirationDateTime;
-                await graphClient.Subscriptions[relevantSubscriptionId].Request().UpdateAsync(relevantSubscription);
+                await subscriptionsRequestBuilder[relevantSubscriptionId].Request().UpdateAsync(relevantSubscription);
             }
             else
-            {
                 await subscriptionsRequest.AddAsync(
                     new Subscription
                     {
-                        ChangeType = "update",
-                        NotificationUrl = AppSettings["NotificationUrl"],
-                        ExpirationDateTime = expirationDateTime
-                    }
-                ); ;
-            }
+                        ChangeType = "updated",
+                        NotificationUrl = configuration["NotificationUrl"],
+                        ExpirationDateTime = expirationDateTime,
+                        Resource = $"users('{configuration["TestUserId"]}')/drive/root"
+                    });
         }
 
     }
+
 }

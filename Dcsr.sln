@@ -7,11 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dcsr.ReplicationSender", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphDeltaRequestPoc", "GraphDeltaRequestPoc\GraphDeltaRequestPoc.csproj", "{2A115ABF-7564-4D10-BF11-CC3CF7F8319F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dcsr.ReplicationSender.DeltaHandler", "Dcsr.ReplicationSender.DeltaHandler\Dcsr.ReplicationSender.DeltaHandler.csproj", "{04678C14-4B5F-49AB-ABC4-4E8AE146C033}"
-EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Dcsr.ReplicationSender.Deployment", "Dcsr.ReplicationSender.Deployment\Dcsr.ReplicationSender.Deployment.deployproj", "{997BC813-9C78-49DE-AB11-16B2C1283B69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dcsr.ReplicationSender.Common", "Dcsr.ReplicationSender.Common\Dcsr.ReplicationSender.Common.csproj", "{C9246393-A194-4563-8549-71B2000D5CD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dcsr.ReplicationSender.DeltaHandler", "Dcsr.ReplicationSender.DeltaHandler\Dcsr.ReplicationSender.DeltaHandler.csproj", "{9E594D6C-1401-4CC7-95A8-8EBB76B3F529}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,18 +25,14 @@ Global
 		{2A115ABF-7564-4D10-BF11-CC3CF7F8319F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A115ABF-7564-4D10-BF11-CC3CF7F8319F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A115ABF-7564-4D10-BF11-CC3CF7F8319F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{04678C14-4B5F-49AB-ABC4-4E8AE146C033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04678C14-4B5F-49AB-ABC4-4E8AE146C033}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04678C14-4B5F-49AB-ABC4-4E8AE146C033}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04678C14-4B5F-49AB-ABC4-4E8AE146C033}.Release|Any CPU.Build.0 = Release|Any CPU
 		{997BC813-9C78-49DE-AB11-16B2C1283B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{997BC813-9C78-49DE-AB11-16B2C1283B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{997BC813-9C78-49DE-AB11-16B2C1283B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{997BC813-9C78-49DE-AB11-16B2C1283B69}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9246393-A194-4563-8549-71B2000D5CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9246393-A194-4563-8549-71B2000D5CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9246393-A194-4563-8549-71B2000D5CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9246393-A194-4563-8549-71B2000D5CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E594D6C-1401-4CC7-95A8-8EBB76B3F529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E594D6C-1401-4CC7-95A8-8EBB76B3F529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E594D6C-1401-4CC7-95A8-8EBB76B3F529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E594D6C-1401-4CC7-95A8-8EBB76B3F529}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

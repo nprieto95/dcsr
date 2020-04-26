@@ -14,31 +14,33 @@
   "variables": {
     "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('resourcesName'))]",
     "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('resourcesName'))]",
-    "storageAccountConnectionStringFormat": "DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
+    "storageAccountConnectionStringFormat": "DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};EndpointSuffix=core.windows.net",
     "storageAccountsApiVersion": "2019-06-01",
-    "notificationUrlFormat": "http://{0}.azurewebsites.net/api/webhooks/incoming/graph?code={1}",
-    "notificationUrl": "[format(variables('notificationUrlFormat', parameters('resourcesName'), parameters('webHookCode'))]"
+    "webApiVersion": "2019-08-01",
+    "notificationUrlFormat": "https://{0}.azurewebsites.net/api/webhooks/incoming/graph?code={1}",
+    "notificationUrl": "[format(variables('notificationUrlFormat'), parameters('resourcesName'), parameters('webHookCode'))]"
   },
   "resources": [
     {
       "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2019-08-01",
+      "apiVersion": "[variables('webApiVersion')]",
       "name": "[parameters('resourcesName')]",
       "location": "[parameters('resourcesLocation')]",
       "properties": {},
       "sku": {
-        "name": "F1"
+        "name": "B1"
       }
     },
     {
       "dependsOn": [ "[variables('serverFarmId')]", "[variables('storageAccountId')]" ],
       "type": "Microsoft.Web/sites",
-      "apiVersion": "2019-08-01",
+      "apiVersion": "[variables('webApiVersion')]",
       "name": "[parameters('resourcesName')]",
       "location": "[parameters('resourcesLocation')]",
       "properties": {
         "serverFarmId": "[variables('serverFarmId')]",
         "siteConfig": {
+          "alwaysOn": true,
           "appSettings": [
             {
               "name": "AuthorityFormat",
