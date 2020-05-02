@@ -11,6 +11,8 @@ Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Dcsr.ReplicationSender.Depl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dcsr.ReplicationSender.DeltaHandler", "Dcsr.ReplicationSender.DeltaHandler\Dcsr.ReplicationSender.DeltaHandler.csproj", "{9E594D6C-1401-4CC7-95A8-8EBB76B3F529}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dcsr.ReplicationSender.Functions", "Dcsr.ReplicationSender.Functions\Dcsr.ReplicationSender.Functions.csproj", "{940B8E44-020A-4D14-8702-72641818C35A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9E594D6C-1401-4CC7-95A8-8EBB76B3F529}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E594D6C-1401-4CC7-95A8-8EBB76B3F529}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E594D6C-1401-4CC7-95A8-8EBB76B3F529}.Release|Any CPU.Build.0 = Release|Any CPU
+		{940B8E44-020A-4D14-8702-72641818C35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{940B8E44-020A-4D14-8702-72641818C35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{940B8E44-020A-4D14-8702-72641818C35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{940B8E44-020A-4D14-8702-72641818C35A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

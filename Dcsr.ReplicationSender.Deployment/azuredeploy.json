@@ -87,6 +87,62 @@
       }
     },
     {
+      "dependsOn": [ "[variables('serverFarmId')]", "[variables('storageAccountId')]" ],
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "[variables('webApiVersion')]",
+      "name": "[concat(parameters('resourcesName'), '-functions')]",
+      "kind": "functionapp",
+      "location": "[parameters('resourcesLocation')]",
+      "properties": {
+        "serverFarmId": "[variables('serverFarmId')]",
+        "siteConfig": {
+          "alwaysOn": true,
+          "appSettings": [
+            {
+              "name": "AuthorityFormat",
+              "value": "[parameters('authorityFormat')]"
+            },
+            {
+              "name": "TenantId",
+              "value": "[parameters('tenantId')]"
+            },
+            {
+              "name": "ClientId",
+              "value": "[parameters('clientId')]"
+            },
+            {
+              "name": "ClientSecret",
+              "value": "[parameters('clientSecret')]"
+            },
+            {
+              "name": "MS_WebHookReceiverSecret_Graph",
+              "value": "[parameters('webHookCode')]"
+            },
+            {
+              "name": "NotificationUrl",
+              "value": "[variables('notificationUrl')]"
+            },
+            {
+              "name": "TestUserId",
+              "value": "[parameters('testUserId')]"
+            }
+          ],
+          "connectionStrings": [
+            {
+              "type": "Custom",
+              "name": "AzureWebJobsDashboard",
+              "connectionString": "[format(variables('storageAccountConnectionStringFormat'), parameters('resourcesName'), first(listKeys(variables('storageAccountId'), variables('storageAccountsApiVersion')).keys).value)]"
+            },
+            {
+              "type": "Custom",
+              "name": "AzureWebJobsStorage",
+              "connectionString": "[format(variables('storageAccountConnectionStringFormat'), parameters('resourcesName'), first(listKeys(variables('storageAccountId'), variables('storageAccountsApiVersion')).keys).value)]"
+            }
+          ]
+        }
+      }
+    },
+    {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "[variables('storageAccountsApiVersion')]",
       "name": "[parameters('resourcesName')]",
