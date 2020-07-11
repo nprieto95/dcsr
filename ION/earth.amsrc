@@ -1,9 +1,9 @@
-*ams_mib_init continuum_nbr=9 ptsname=dgr
+*ams_mib_init continuum_nbr=1 ptsname=dgr
 +ams_mib_add
-*continuum nbr=1 name=earth desc='Earth'
+*continuum nbr=2 name=mars desc='Mars'
 *csendpoint epspec=@:2357
 *application name=dcsr
-+venture nbr=1 appname=dcsr authname=test net_config=tree
++venture nbr=1 appname=dcsr authname=uade net_config=tree
 *role nbr=2 name=shell
 *role nbr=3 name=log
 *role nbr=87 name=amsd
