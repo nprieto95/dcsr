@@ -1,0 +1,18 @@
+*ams_mib_init continuum_nbr=9 ptsname=dgr
++ams_mib_add
+*continuum nbr=1 name=earth desc='Earth'
+*csendpoint epspec=@:2357
+*application name=dcsr
++venture nbr=1 appname=dcsr authname=test net_config=tree
+*role nbr=2 name=shell
+*role nbr=3 name=log
+*role nbr=87 name=amsd
+*role nbr=88 name=amsstop
+*role nbr=89 name=amsmib
+*subject nbr=1 name=text desc='ASCII text'
+*subject nbr=88 name=amsstop desc='shutdown cmd'
+*subject nbr=89 name=amsmib desc='reconfig cmd'
+*unit nbr=1 name=orbiters
+*msgspace nbr=2
+-venture
+-ams_mib_add
