@@ -1,18 +1,17 @@
 ## begin ionadmin 
-1 1 ionconfig
+1 2 ionconfig
 s
 ## end ionadmin 
 
 ## begin bpadmin 
 1
 a scheme ipn 'ipnfw' 'ipnadminep'
-a endpoint ipn:1.1 q
+a endpoint ipn:2.1 q
 a protocol udp 1400 100
-a outduct udp 172.17.11.251:4556 'udpclo 2'
+#a outduct udp 172.17.11.243:4556 'udpclo 2'
 s
 ## end bpadmin 
 
 ## begin ipnadmin
-a plan 1 udp/127.0.0.1:4556
-a plan 2 udp/172.17.11.251:4556
+#a plan 1 udp/172.17.11.243:4556
 ## end ipnadmin
