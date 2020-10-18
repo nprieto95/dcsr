@@ -32,8 +32,8 @@ s
 
 ## begin ipnadmin
 
-a plan 1 tcp/192.168.0.88:4556
-a plan 2 tcp/127.0.0.1:4556
+a plan 1 tcp/127.0.0.1:4556
+a plan 2 tcp/192.168.0.88:4556
 
 e 1
 
