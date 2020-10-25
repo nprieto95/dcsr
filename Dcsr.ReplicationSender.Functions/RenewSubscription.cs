@@ -13,7 +13,7 @@ namespace Dcsr.ReplicationSender.Functions
         }
 
         [FunctionName("RenewSubscription")]
-        public void Run([TimerTrigger("0 * * * * *")] TimerInfo timerInfo)
+        public void Run([TimerTrigger("0 0 0 * * *", RunOnStartup = true)] TimerInfo timerInfo)
         {
             subscriptionRenewerService.RenewAllSubscriptions();
         }
