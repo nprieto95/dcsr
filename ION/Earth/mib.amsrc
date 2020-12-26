@@ -3,7 +3,7 @@
 *continuum nbr=2 name=mars desc='Mars'
 *csendpoint epspec=@:2357
 *application name=dcsr
-+venture nbr=1 appname=dcsr authname=uade net_config=tree
++venture nbr=1 appname=dcsr authname=uade gweid=udp@192.168.0.87:9840 net_config=tree
 *role nbr=2 name=shell
 *role nbr=3 name=log
 *role nbr=87 name=amsd

@@ -19,6 +19,8 @@ a scheme ipn 'ipnfw' 'ipnadminep'
 a endpoint ipn:1.0 q
 a endpoint ipn:1.1 q
 
+a endpoint ipn:1.2 q
+
 a protocol udp 1400 100
 
 a induct udp 0.0.0.0:4556 udpcli
