@@ -12,6 +12,7 @@
 *role nbr=88 name=amsstop
 *role nbr=89 name=amsmib
 *subject nbr=1 name=text desc='ASCII text'
+*subject nbr=2 name=delta desc='Deltas in json format'
 *subject nbr=88 name=amsstop desc='shutdown cmd'
 *subject nbr=89 name=amsmib desc='reconfig cmd'
 *msgspace nbr=2 gweid=udp@192.168.0.88:9841 neighbor=1
