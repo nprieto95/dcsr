@@ -6,6 +6,7 @@
 +venture nbr=1 appname=dcsr authname=uade gweid=udp@192.168.0.87:9841 net_config=mesh
 *role nbr=2 name=shell
 *role nbr=3 name=log
+*role nbr=4 name=transmitter
 *role nbr=87 name=amsd
 *role nbr=88 name=amsstop
 *role nbr=89 name=amsmib
