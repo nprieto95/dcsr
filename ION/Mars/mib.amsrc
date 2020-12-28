@@ -3,15 +3,17 @@
 *continuum nbr=1 name=earth desc='Earth'
 *csendpoint epspec=@:2357
 *application name=dcsr
-+venture nbr=1 appname=dcsr authname=uade net_config=tree
++venture nbr=1 appname=dcsr authname=uade gweid=udp@192.168.0.88:9841 net_config=mesh
 *role nbr=2 name=shell
 *role nbr=3 name=log
+*role nbr=4 name=transmitter
+*role nbr=5 name=receptor
 *role nbr=87 name=amsd
 *role nbr=88 name=amsstop
 *role nbr=89 name=amsmib
 *subject nbr=1 name=text desc='ASCII text'
 *subject nbr=88 name=amsstop desc='shutdown cmd'
 *subject nbr=89 name=amsmib desc='reconfig cmd'
-*msgspace nbr=1
+*msgspace nbr=1 gweid=udp@192.168.0.87:9841 neighbor=1
 -venture
 -ams_mib_add
