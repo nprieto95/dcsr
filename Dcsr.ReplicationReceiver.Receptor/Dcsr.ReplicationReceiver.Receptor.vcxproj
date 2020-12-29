@@ -35,9 +35,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9d85ff18-525a-4cc5-919f-0c6c4729cfe4}</ProjectGuid>
+    <ProjectGuid>{876e2b82-2af8-41a1-af33-7d9a8fa83d86}</ProjectGuid>
     <Keyword>Linux</Keyword>
-    <RootNamespace>Dcsr_ReplicationSender_Receiver</RootNamespace>
+    <RootNamespace>Dcsr_ReplicationReceiver_Receptor</RootNamespace>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <ApplicationType>Linux</ApplicationType>
     <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
@@ -79,7 +79,11 @@
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <Link>
+      <LibraryDependencies>bp;amp;ams;bss;cgr;dgr;ici;ltp;bssp;cfdp;dtpc;bsspP;tcpbsa;udpcla;stcpcla;ampAgentADM;pthread;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>

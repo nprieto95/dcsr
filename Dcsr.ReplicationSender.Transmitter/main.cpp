@@ -1,23 +1,39 @@
-#include <cstdio>
 #include <ams.h>
-#include <exception>
-#include <string>
-#include <limits.h>
-#include <unistd.h>
 
-char* getexepath()
-{
-	char result[PATH_MAX];
-	ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
-	return result;
-}
-
-static AmsModule me;
+constexpr auto MARS_CONTINUUM = 2;
+constexpr auto DELTA_SUBJECT = 2;
 
 int main()
 {
-	int regustrationResult = ams_register("/home/nahuel/Dcsr/ION/Earth/mib.amsrc", NULL, "dcsr", "uade", "", "transmitter", &me);
-	//printf("%d", regustrationResult);
-	//printf(getexepath());
-    return 0;
+	AmsModule module;
+	char mibSource[] = "/home/nahuel/Dcsr/ION/Earth/mib.amsrc";
+	char applicationName[] = "dcsr";
+	char authorityName[] = "uade";
+	char unitName[] = "";
+	char roleName[] = "transmitter";
+	int registrationFailed = ams_register(mibSource, NULL, applicationName, authorityName, unitName, roleName, &module);
+	if (!registrationFailed)
+		writeMemo("Transmitter successfully registered.");
+	else
+		return -1;
+
+	char message[] = "hello from the pale blue dot";
+	while (true)
+	{
+		/*int publishingFailed = ams_publish(module, DELTA_SUBJECT, 1, 0, 27, message, 0);
+		if (publishingFailed)
+			break;
+		sleep(30);*/
+		int sendingFailed = ams_send(module, MARS_CONTINUUM, 0, 1, DELTA_SUBJECT, 1, 0, 28, message, 0);
+		if (sendingFailed)
+			break;
+		sleep(30);
+	}
+
+	int unregistrationFailed = ams_unregister(module);
+	if (!unregistrationFailed)
+		writeMemo("Transmitter successfully unregistered.");
+	else
+		return -1;
+	return 0;
 }
