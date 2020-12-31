@@ -10,5 +10,5 @@ set -e
 #sudo tc filter add dev eth0 protocol ip parent 1:0 prio 3 u32 match ip dst 192.168.0.88 flowid 1:3
 ionstart -I ion.rc
 amsd mib.amsrc @ dcsr uade "" &
-sleep 10
+sleep 90
 ramsgate dcsr uade &

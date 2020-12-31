@@ -9,6 +9,6 @@ set -e
 #sudo tc qdisc add dev eth0 parent 30:1 handle 31: netem delay 274877ms
 #sudo tc filter add dev eth0 protocol ip parent 1:0 prio 3 u32 match ip dst 192.168.0.87 flowid 1:3
 ionstart -I ion.rc
-#amsd mib.amsrc @ dcsr uade "" &
-#sleep 10
-#ramsgate dcsr uade &
+amsd mib.amsrc @ dcsr uade "" &
+sleep 90
+ramsgate dcsr uade &
