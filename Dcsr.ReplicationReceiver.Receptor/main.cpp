@@ -13,13 +13,19 @@ int main()
 	char roleName[] = "receptor";
 	int registrationFailed = ams_register(mibSource, NULL, applicationName, authorityName, unitName, roleName, &module);
 	if (!registrationFailed)
-		writeMemo("Transmitter successfully registered.");
+		writeMemo("Receptor successfully registered.");
 	else
 		return -1;
 
-	int subscriptionFailed = ams_subscribe(module, ANY_ROLE, EARTH_CONTINUUM, 0, DELTA_SUBJECT, 1, 0, AmsTransmissionOrder, AmsAssured);
+	/*int invitationFailed = ams_invite(module, ANY_ROLE, EARTH_CONTINUUM, 0, DELTA_SUBJECT, 1, 0, AmsTransmissionOrder, AmsAssured);
+	if (!invitationFailed)
+		writeMemo("Receptor successfully invited.");
+	else
+		return -1;*/
+
+	int subscriptionFailed = ams_subscribe(module, ANY_ROLE, ALL_CONTINUA, 0, DELTA_SUBJECT, 1, 0, AmsTransmissionOrder, AmsAssured);
 	if (!subscriptionFailed)
-		writeMemo("Transmitter successfully subscribed.");
+		writeMemo("Receptor successfully subscribed.");
 	else
 		return -1;
 
