@@ -20,6 +20,7 @@ a endpoint ipn:2.0 q
 a endpoint ipn:2.1 q
 
 a endpoint ipn:2.2 q
+a endpoint ipn:2.3 q
 
 a protocol udp 1400 100
 
@@ -39,3 +40,11 @@ a plan 2 udp/127.0.0.1:4556
 e 1
 
 ## end ipnadmin
+
+## begin cfdpadmin
+
+1
+
+a entity 1 bp ipn:2.3 0 0 0
+
+## end cfdpadmin
