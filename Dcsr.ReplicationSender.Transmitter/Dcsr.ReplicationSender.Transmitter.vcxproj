@@ -35,7 +35,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4e16ac82-d7ec-4440-8571-4781ede5b664}</ProjectGuid>
+    <ProjectGuid>{66916332-0b8a-4a2a-b597-128f62fc221a}</ProjectGuid>
     <Keyword>Linux</Keyword>
     <RootNamespace>Dcsr_ReplicationSender_Transmitter</RootNamespace>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
@@ -79,14 +79,7 @@
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <Link />
-    <Link />
-    <ClCompile />
-    <Link>
-      <LibraryDependencies>bp;amp;ams;bss;cgr;dgr;ici;ltp;bssp;cfdp;dtpc;bsspP;tcpbsa;udpcla;stcpcla;ampAgentADM;pthread;%(LibraryDependencies)</LibraryDependencies>
-    </Link>
-  </ItemDefinitionGroup>
+  <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>
