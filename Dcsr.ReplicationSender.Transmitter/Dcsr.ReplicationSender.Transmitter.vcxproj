@@ -75,11 +75,21 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClCompile Include="AmsFunctions.cpp" />
+    <ClCompile Include="IoFunctions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StringFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmsFunctions.h" />
+    <ClInclude Include="IoFunctions.h" />
+    <ClInclude Include="StringFunctions.h" />
   </ItemGroup>
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <Link>
+      <LibraryDependencies>bp;amp;ams;bss;cgr;dgr;ici;ltp;bssp;cfdp;dtpc;bsspP;tcpbsa;udpcla;stcpcla;ampAgentADM;pthread;azurestorage;cpprest;boost_atomic;boost_thread;boost_system;boost_date_time;boost_regex;boost_filesystem;boost_random;boost_chrono;boost_serialization;ssl;crypto;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>

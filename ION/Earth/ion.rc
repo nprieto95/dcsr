@@ -21,6 +21,9 @@ a endpoint ipn:1.1 q
 
 a endpoint ipn:1.2 q
 
+a endpoint ipn:1.64 q
+a endpoint ipn:1.65 q
+
 a protocol udp 1400 100
 
 a induct udp 0.0.0.0:4556 udpcli
@@ -39,3 +42,11 @@ a plan 2 udp/192.168.0.88:4556
 e 1
 
 ## end ipnadmin
+
+## begin cfdpadmin
+
+1
+a entity 2 bp ipn:2.0 0 0 0
+s bputa
+
+## end cfdpadmin
