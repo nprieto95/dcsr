@@ -53,6 +53,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
+    <RemoteCopyIncludeDirectories>$(RemoteCopyIncludeDirectories)</RemoteCopyIncludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -75,15 +76,18 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
-    <ClCompile Include="AmsFunctions.cpp" />
-    <ClCompile Include="IoFunctions.cpp" />
+    <ClCompile Include="boost_header_only.cpp" />
+    <ClCompile Include="change.cpp" />
+    <ClCompile Include="io_functions.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="StringFunctions.cpp" />
+    <ClCompile Include="storage_functions.cpp" />
+    <ClCompile Include="string_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AmsFunctions.h" />
-    <ClInclude Include="IoFunctions.h" />
-    <ClInclude Include="StringFunctions.h" />
+    <ClInclude Include="change.h" />
+    <ClInclude Include="io_functions.h" />
+    <ClInclude Include="storage_functions.h" />
+    <ClInclude Include="string_functions.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <Link>

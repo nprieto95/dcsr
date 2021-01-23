@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="boost_header_only.cpp">
+      <Filter>Header Only References</Filter>
+    </ClCompile>
+    <ClCompile Include="io_functions.cpp">
+      <Filter>Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="storage_functions.cpp">
+      <Filter>Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="string_functions.cpp">
+      <Filter>Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="change.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="change.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="storage_functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="io_functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="string_functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{b661e6ed-7e00-446b-91c6-5ed365097ef5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Only References">
+      <UniqueIdentifier>{9992420d-6766-4a93-acd4-b45b260d122e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Functions">
+      <UniqueIdentifier>{da0dd3f0-bd4e-4b3f-b251-77f757c7b1bb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
