@@ -1,3 +1,4 @@
+sudo apt update
 sudo apt install make
 sudo ln -s /usr/bin/make /usr/bin/gmake
 sudo apt install gcc
