@@ -22,6 +22,9 @@ a endpoint ipn:2.1 q
 a endpoint ipn:2.2 q
 a endpoint ipn:2.3 q
 
+a endpoint ipn:2.64 q
+a endpoint ipn:2.65 q
+
 a protocol udp 1400 100
 
 a induct udp 0.0.0.0:4556 udpcli
@@ -45,6 +48,8 @@ e 1
 
 1
 
-a entity 1 bp ipn:2.3 0 0 0
+a entity 1 bp ipn:1.0 0 0 0
+
+s bputa
 
 ## end cfdpadmin

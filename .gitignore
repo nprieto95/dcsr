@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+ION/Mars/cfdp.1.2
+ION/Earth/cfdp.2.3
+ION/Earth/cfdp.2.1
