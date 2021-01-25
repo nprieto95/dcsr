@@ -9,6 +9,7 @@ using boost::json::value;
 #include <cfdp.h>
 
 #include "storage_functions.h"
+#include "string_functions.h"
 #include "change.h"
 
 using namespace std;
@@ -17,30 +18,10 @@ int main()
 {
 
     auto queue = get_queue();
-    auto attach_result = cfdp_attach();
-    CfdpNumber mars_cfdp_nbr;
-    CfdpTransactionId transaction_id;
-    cfdp_compress_number(&mars_cfdp_nbr, 2);
-    auto requests = cfdp_create_fsreq_list();
-    cfdp_add_fsreq(requests, CfdpAction::CfdpDenyFile, "/home/nahuel/Documents/test_transfer_delay1515.odt", NULL);
-    cfdp_add_fsreq(requests, CfdpAction::CfdpRenameFile, "/home/nahuel/Documents/test_transfer_delay1515_new.odt", "/home/nahuel/Documents/test_transfer_delay1515.odt");
-    auto put_result = cfdp_put(
-        &mars_cfdp_nbr,
-        0,
-        NULL,
-        "/home/nahuel/Documents/test_transfer_delay.odt",
-        "/home/nahuel/Documents/test_transfer_delay1515_new.odt",
-        NULL, NULL, NULL, 0, NULL, 0, NULL, requests, &transaction_id);
-
-    /*cfdp_add_fsreq(requests, CfdpAction::CfdpDeleteFile, "/home/nahuel/Documents/test_transfer_delay.odt", NULL);
-    auto delete_result = cfdp_put(
-        &mars_cfdp_nbr,
-        0,
-        NULL,
-        NULL,
-        NULL,
-        NULL, NULL, NULL, 0, NULL, 0, NULL, requests, &transaction_id);*/
-    cfdp_detach();
+    
+    string share_prefix = "/run/user/1000/gvfs/smb-share:server=main,share=dcsr";
+    string dest_prefix = "/home/nahuel/Documents";
+    
 
     do
     {
@@ -51,7 +32,13 @@ int main()
 
         if (approximate_message_count == 0)
         {
+            cout << "No messages detected this time. Will poll again in 10 seconds." << endl;
             continue;
+        }
+        else
+        {
+            cout << "Allowing 60 seconds to pass for the local SMB share to get updated." << endl;
+            sleep(60);
         }
 
         auto messages = queue.get_messages(approximate_message_count);
@@ -62,12 +49,80 @@ int main()
             value jv = parse(message_string);
             if (jv.is_array())
             {
-                auto a = jv.as_array();
-                auto o = a[0].as_object();
-                auto size = o["size"].as_int64();
-                cout << "Size is " << size;
+                auto attach_result = cfdp_attach();
+                if (attach_result == -1)
+                {
+                    cout << "Couldn't attach to CFDP. Will retry in 10 seconds..." << endl;
+                    goto outer_continue;
+                }
+                auto items = jv.as_array();
+                for (auto item : items)
+                {
+                    
+                    auto o = item.as_object();
+
+                    if (o.contains("file"))
+                    {
+
+                        string file_name = o["name"].as_string().c_str();
+                        string raw_file_path = o["parentReference"].as_object()["path"].as_string().c_str();
+                        string file_path = raw_file_path.substr(raw_file_path.find(':') + 1);
+                        string file_path_source = share_prefix + file_path + '/' + file_name;
+                        string file_path_destination = dest_prefix + file_path + '/' + file_name;
+
+                        CfdpNumber mars_cfdp_nbr;
+                        CfdpTransactionId transaction_id;
+                        cfdp_compress_number(&mars_cfdp_nbr, 2);
+                        auto requests = cfdp_create_fsreq_list();
+
+                        int put_result;
+
+                        if (!o.contains("deleted"))
+                        {
+
+                            cout << "Sending " << file_name << " to Mars." << endl;
+                            cfdp_add_fsreq(requests, CfdpAction::CfdpDenyFile, to_c_string(file_path_destination), NULL);
+                            cfdp_add_fsreq(requests, CfdpAction::CfdpRenameFile, to_c_string(file_path_destination + "new"), to_c_string(file_path_destination));
+                            put_result = cfdp_put(
+                                &mars_cfdp_nbr,
+                                0,
+                                NULL,
+                                to_c_string(file_path_source),
+                                to_c_string(file_path_destination + "new"),
+                                NULL, NULL, NULL, 0, NULL, 0, NULL, requests, &transaction_id);
+
+                        }
+                        else
+                        {
+                            cout << "Deleting " << file_name << " on Mars." << endl;
+                            cfdp_add_fsreq(requests, CfdpAction::CfdpDenyFile, to_c_string(file_path_destination), NULL);
+                            put_result = cfdp_put(
+                                &mars_cfdp_nbr,
+                                0,
+                                NULL,
+                                NULL,
+                                NULL,
+                                NULL, NULL, NULL, 0, NULL, 0, NULL, requests, &transaction_id);
+                        }
+
+                        if (put_result == -1)
+                        {
+                            cout << "Something went wrong. Will retry the batch in 10 seconds." << endl;
+                            goto outer_continue;
+                        }
+
+                    }
+
+                }
+                cfdp_detach();
             }
+
+            queue.delete_message(message);
+
         }
+
+    outer_continue:
+        continue;
 
     } while (!sleep(10));
 
