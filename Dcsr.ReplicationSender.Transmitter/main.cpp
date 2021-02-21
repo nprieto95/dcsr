@@ -110,42 +110,23 @@ int main()
 
 							if (prior_file_path_destination != "*")
 							{
-								// This is a rename
-								cout << "Renaming " << prior_file_path_destination << " to " << file_path_destination << endl;
-								cfdp_add_fsreq(requests, CfdpAction::CfdpRenameFile, to_c_string(prior_file_path_destination), to_c_string(file_path_destination));
-								put_result = cfdp_put(
-									&mars_cfdp_nbr,
-									0,
-									NULL,
-									NULL,
-									NULL,
-									NULL, NULL, NULL, 0, NULL, 0, NULL, requests, &transaction_id);
+								auto old_name = (prior_file_path != "*" ? prior_file_path : file_path) + '/' +
+									(prior_file_name != "*" ? prior_file_name : file_name);
+								auto new_name = file_path + '/' + file_name;
+								auto change = FileRenaming(old_name, new_name);
+								change.apply();
 							}
 							else
 							{
-								cout << "Sending " << file_name << " to Mars." << endl;
-								cfdp_add_fsreq(requests, CfdpAction::CfdpDenyFile, to_c_string(file_path_destination), NULL);
-								cfdp_add_fsreq(requests, CfdpAction::CfdpRenameFile, to_c_string(file_path_destination + "new"), to_c_string(file_path_destination));
-								put_result = cfdp_put(
-									&mars_cfdp_nbr,
-									0,
-									NULL,
-									to_c_string(file_path_source),
-									to_c_string(file_path_destination + "new"),
-									NULL, NULL, NULL, 0, NULL, 0, NULL, requests, &transaction_id);
+								auto change = FileModification(file_path + '/' + file_name);
+								change.apply();
 							}
 						}
 						else
 						{
 							cout << "Deleting " << file_name << " on Mars." << endl;
-							cfdp_add_fsreq(requests, CfdpAction::CfdpDenyFile, to_c_string(file_path_destination), NULL);
-							put_result = cfdp_put(
-								&mars_cfdp_nbr,
-								0,
-								NULL,
-								NULL,
-								NULL,
-								NULL, NULL, NULL, 0, NULL, 0, NULL, requests, &transaction_id);
+							auto change = FileDeletion(file_path + '/' + file_name);
+							change.apply();
 						}
 
 						if (put_result == -1)

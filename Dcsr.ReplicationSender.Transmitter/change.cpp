@@ -6,9 +6,13 @@ using namespace std;
 using boost::json::parse;
 using boost::json::value;
 
-Change::Change(string delta)
-{
-	value jv = parse(delta);
-}
-
-Deletion::Deletion(string delta) :Change(delta) {}
+//TransferfulChange::TransferfulChange(string file_name)
+//{
+//	value jv = parse(delta);
+//}
+//
+//void Change::apply()
+//{
+//}
+//
+//Deletion::Deletion(string delta) :Change(delta) {}
